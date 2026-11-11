@@ -1,0 +1,57 @@
+==========================================================================
+ Lab 4 - DES, sarcina 2.3: dat fiind K+, determinăm cheia de rundă Ki
+==========================================================================
+
+ Cum se obține K+?
+  1 - introduc K+ (56 de biți în binar sau 14 cifre hex)
+  2 - K+ generat aleatoriu
+  3 - din cheia DES de 8 simboluri (K+ = PC-1(K))
+  0 - ieșire
+Opțiunea: 1
+K+ = 1111000 0110011 0010101 0101111 0101010 1011001 1001111 0001111
+  K+ = 1111000 0110011 0010101 0101111 0101010 1011001 1001111 0001111
+  K+ = F0CCAAF556678F (hex)
+Runda i (1..16): 1
+
+ Pasul 1. Împărțim K+ în două jumătăți de câte 28 de biți:
+   C0 = 1111000 0110011 0010101 0101111
+   D0 = 0101010 1011001 1001111 0001111
+
+ Pasul 2. Deplasări circulare la stânga (tabelul deplasărilor):
+   Runda   :  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16
+   Deplasări:  1  1  2  2  2  2  2  2  1  2  2  2  2  2  2  1
+   Pentru i = 1: numărul total de deplasări = 1 = 1
+   C1 = 1110000 1100110 0101010 1011111   (C0 << 1)
+   D1 = 1010101 0110011 0011110 0011110   (D0 << 1)
+
+ Pasul 3. Concatenăm C1D1 (56 de biți):
+   C1D1 = 1110000 1100110 0101010 1011111 1010101 0110011 0011110 0011110
+  Tabelul PC-2 (56 -> 48 de biți):
+     14 17 11 24  1  5
+      3 28 15  6 21 10
+     23 19 12  4 26  8
+     16  7 27 20 13  2
+     41 52 31 37 47 55
+     30 40 51 45 33 48
+     44 49 39 56 34 53
+     46 42 50 36 29 32
+   Aplicăm PC-2: bitul j al lui K1 este bitul PC2[j] din C1D1:
+     biții  1- 6: b14=0, b17=0, b11=0, b24=1, b1=1, b5=0  -> 000110
+     biții  7-12: b3=1, b28=1, b15=0, b6=0, b21=0, b10=0  -> 110000
+     biții 13-18: b23=0, b19=0, b12=1, b4=0, b26=1, b8=1  -> 001011
+     biții 19-24: b16=1, b7=0, b27=1, b20=1, b13=1, b2=1  -> 101111
+     biții 25-30: b41=1, b52=1, b31=1, b37=1, b47=1, b55=1  -> 111111
+     biții 31-36: b30=0, b40=0, b51=0, b45=1, b33=1, b48=1  -> 000111
+     biții 37-42: b44=0, b49=0, b39=0, b56=0, b34=0, b53=1  -> 000001
+     biții 43-48: b46=1, b42=1, b50=0, b36=0, b29=1, b32=0  -> 110010
+
+ Rezultat: K1 = 000110 110000 001011 101111 111111 000111 000001 110010
+           K1 = 1B02EFFC7072 (hex)
+
+ Cum se obține K+?
+  1 - introduc K+ (56 de biți în binar sau 14 cifre hex)
+  2 - K+ generat aleatoriu
+  3 - din cheia DES de 8 simboluri (K+ = PC-1(K))
+  0 - ieșire
+Opțiunea: 0
+
