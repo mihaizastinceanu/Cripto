@@ -1,0 +1,18 @@
+$ python pkc.py --verify wolfram/results.json
+  [OK] m = decimal(hex(ASCII('Zastinceanu Mihai')))
+RSA:
+  [OK] p și q sunt prime
+  [OK] n = p·q, 2050 biți (>= 2048)
+  [OK] e·d ≡ 1 (mod φ(n))
+  [OK] c = m^e mod n
+  [OK] c^d mod n = m
+ElGamal:
+  [OK] y = g^x mod p
+  [OK] c1 = g^k mod p, c2 = m·y^k mod p
+  [OK] c2·(c1^x)^(-1) mod p = m
+Diffie-Hellman:
+  [OK] 1 < a, b < p-1
+  [OK] A = g^a mod p, B = g^b mod p
+  [OK] B^a mod p = A^b mod p = K
+  [OK] cheia AES-256 = ultimii 256 de biți ai lui K
+TOATE VERIFICĂRILE AU TRECUT
