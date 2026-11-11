@@ -1,0 +1,15 @@
+$ python signatures.py --verify wolfram/results.json
+Semnătura RSA (MD5):
+  [OK] MD5(m) = 9D4A90563A634020D062A6A8DCD0AC98
+  [OK] p, q prime
+  [OK] n = p·q, 3073 biți
+  [OK] e·d ≡ 1 (mod φ(n))
+  [OK] s = h^d mod n
+  [OK] s^e mod n = h  -> semnătură validă
+Semnătura ElGamal (MD4):
+  [OK] MD4(m) = 045572B77825249CC437FFAEB0A0A9D3
+  [OK] y = g^x mod p
+  [OK] gcd(k, p-1) = 1, r = g^k mod p
+  [OK] s = (h - x·r)·k^(-1) mod (p-1)
+  [OK] g^h ≡ y^r · r^s (mod p) -> semnătură validă
+TOATE VERIFICĂRILE AU TRECUT
