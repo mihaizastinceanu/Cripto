@@ -1,0 +1,4 @@
+* text=auto eol=lf
+*.png binary
+*.docx binary
+lab6/message.txt -text
