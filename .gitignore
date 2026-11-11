@@ -1,0 +1,10 @@
+# course assignment sheets (not my work)
+*.pdf
+# PKI working data: contains private keys
+lab5-pki/pki-data/
+lab5-pki/contract.txt
+lab5-pki/*.sig
+# build artefacts
+.slices/
+__pycache__/
+~$*
