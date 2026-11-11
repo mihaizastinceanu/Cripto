@@ -1,0 +1,68 @@
+$ ./pki.sh revoke alice keyCompromise
+
+==> Revoking the certificate of 'alice' (reason: keyCompromise)
+Revoking Certificate 1000.
+
+==> Publishing the new CRL
+        Last Update: Nov 11 12:44:35 2026 GMT
+        Next Update: Dec 11 12:44:35 2026 GMT
+    Serial Number: 1000
+            X509v3 CRL Reason Code: 
+                Key Compromise
+
+$ ./pki.sh verify alice contract.txt
+
+==> 1) Is the signer's certificate issued by our CA and not revoked?
+C=MD, L=Chisinau, O=UTM FCIM Crypto Lab, CN=alice
+error 23 at 0 depth lookup: certificate revoked
+error D:/univer/crypta/lab5-pki/pki-data/users/alice/alice.crt: verification failed
+RESULT: signature NOT trusted - the certificate of 'alice' is revoked or invalid
+
+$ ./pki.sh sign alice contract.txt
+
+==> Checking that the certificate of 'alice' is still valid
+C=MD, L=Chisinau, O=UTM FCIM Crypto Lab, CN=alice
+error 23 at 0 depth lookup: certificate revoked
+error D:/univer/crypta/lab5-pki/pki-data/users/alice/alice.crt: verification failed
+Error: the certificate of 'alice' is not valid (revoked or expired) - signing refused
+
+$ ./pki.sh list
+Status Expires        Serial   Subject
+R      271111124431Z  1000     /C=MD/L=Chisinau/O=UTM FCIM Crypto Lab/CN=alice
+V      271111124431Z  1001     /C=MD/L=Chisinau/O=UTM FCIM Crypto Lab/CN=bob
+
+$ ./pki.sh issue alice
+
+==> Generating the private key of 'alice' (RSA, 2048 bits)
+
+==> Creating the certificate signing request (CSR)
+
+==> The CA signs the request -> certificate valid 365 days
+Signature ok
+Certificate is to be certified until Nov 11 12:44:36 2027 GMT (365 days)
+subject=C=MD, L=Chisinau, O=UTM FCIM Crypto Lab, CN=alice
+issuer=C=MD, L=Chisinau, O=UTM FCIM Crypto Lab, CN=UTM Crypto Lab Root CA
+serial=1002
+notBefore=Nov 11 12:44:36 2026 GMT
+notAfter=Nov 11 12:44:36 2027 GMT
+Key size: Private-Key: (2048 bit, 2 primes)
+D:/univer/crypta/lab5-pki/pki-data/users/alice/alice.crt: OK
+
+$ ./pki.sh sign alice contract.txt
+
+==> Checking that the certificate of 'alice' is still valid
+D:/univer/crypta/lab5-pki/pki-data/users/alice/alice.crt: OK
+
+==> Signing 'contract.txt' (SHA-256 hash, RSA private key of 'alice')
+SHA-256(contract.txt) = d2359157a815abaf9052ef898239e324f0e900e46baef0a520806e5762c293b1
+Signature: contract.txt.alice.sig (256 bytes)
+
+$ ./pki.sh verify alice contract.txt
+
+==> 1) Is the signer's certificate issued by our CA and not revoked?
+D:/univer/crypta/lab5-pki/pki-data/users/alice/alice.crt: OK
+
+==> 2) Does the signature match the file? (public key taken from the certificate)
+Verified OK
+RESULT: signature VALID - 'contract.txt' was signed by 'alice' and was not modified
+

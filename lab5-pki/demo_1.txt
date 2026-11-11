@@ -1,0 +1,16 @@
+$ ./pki.sh init
+
+==> Generating the CA root private key (RSA, 4096 bits)
+
+==> Creating the self-signed CA certificate (valid 3650 days = 10 years)
+
+==> Generating the (empty) certificate revocation list
+subject=C=MD, L=Chisinau, O=UTM FCIM Crypto Lab, CN=UTM Crypto Lab Root CA
+issuer=C=MD, L=Chisinau, O=UTM FCIM Crypto Lab, CN=UTM Crypto Lab Root CA
+notBefore=Nov 11 12:44:30 2026 GMT
+notAfter=Nov  8 12:44:30 2036 GMT
+X509v3 Basic Constraints: critical
+    CA:TRUE
+Key size: Private-Key: (4096 bit, 2 primes)
+CA ready: D:/univer/crypta/lab5-pki/pki-data/ca/ca.crt
+

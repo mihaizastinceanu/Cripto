@@ -1,0 +1,51 @@
+$ cat contract.txt
+Contract nr. 25: Alice sells Bob 10 books for 500 MDL.
+
+$ ./pki.sh sign alice contract.txt
+
+==> Checking that the certificate of 'alice' is still valid
+D:/univer/crypta/lab5-pki/pki-data/users/alice/alice.crt: OK
+
+==> Signing 'contract.txt' (SHA-256 hash, RSA private key of 'alice')
+SHA-256(contract.txt) = d2359157a815abaf9052ef898239e324f0e900e46baef0a520806e5762c293b1
+Signature: contract.txt.alice.sig (256 bytes)
+
+$ ./pki.sh verify alice contract.txt
+
+==> 1) Is the signer's certificate issued by our CA and not revoked?
+D:/univer/crypta/lab5-pki/pki-data/users/alice/alice.crt: OK
+
+==> 2) Does the signature match the file? (public key taken from the certificate)
+Verified OK
+RESULT: signature VALID - 'contract.txt' was signed by 'alice' and was not modified
+
+$ cp contract.txt.alice.sig contract.txt.bob.sig
+
+$ ./pki.sh verify bob contract.txt
+
+==> 1) Is the signer's certificate issued by our CA and not revoked?
+D:/univer/crypta/lab5-pki/pki-data/users/bob/bob.crt: OK
+
+==> 2) Does the signature match the file? (public key taken from the certificate)
+Verification failure
+A05A0000:error:0200008A:rsa routines:RSA_padding_check_PKCS1_type_1:invalid padding:../openssl-3.2.1/crypto/rsa/rsa_pk1.c:79:
+A05A0000:error:02000072:rsa routines:rsa_ossl_public_decrypt:padding check failed:../openssl-3.2.1/crypto/rsa/rsa_ossl.c:746:
+A05A0000:error:1C880004:Provider routines:rsa_verify:RSA lib:../openssl-3.2.1/providers/implementations/signature/rsa_sig.c:785:
+RESULT: signature INVALID - the file was modified or signed by someone else
+
+$ sed -i s/500 MDL/5 MDL/ contract.txt
+
+$ cat contract.txt
+Contract nr. 25: Alice sells Bob 10 books for 5 MDL.
+
+$ ./pki.sh verify alice contract.txt
+
+==> 1) Is the signer's certificate issued by our CA and not revoked?
+D:/univer/crypta/lab5-pki/pki-data/users/alice/alice.crt: OK
+
+==> 2) Does the signature match the file? (public key taken from the certificate)
+Verification failure
+90540000:error:02000068:rsa routines:ossl_rsa_verify:bad signature:../openssl-3.2.1/crypto/rsa/rsa_sign.c:426:
+90540000:error:1C880004:Provider routines:rsa_verify:RSA lib:../openssl-3.2.1/providers/implementations/signature/rsa_sig.c:785:
+RESULT: signature INVALID - the file was modified or signed by someone else
+

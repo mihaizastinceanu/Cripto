@@ -1,0 +1,39 @@
+$ ./pki.sh issue alice
+
+==> Generating the private key of 'alice' (RSA, 2048 bits)
+
+==> Creating the certificate signing request (CSR)
+
+==> The CA signs the request -> certificate valid 365 days
+Signature ok
+Certificate is to be certified until Nov 11 12:44:31 2027 GMT (365 days)
+subject=C=MD, L=Chisinau, O=UTM FCIM Crypto Lab, CN=alice
+issuer=C=MD, L=Chisinau, O=UTM FCIM Crypto Lab, CN=UTM Crypto Lab Root CA
+serial=1000
+notBefore=Nov 11 12:44:31 2026 GMT
+notAfter=Nov 11 12:44:31 2027 GMT
+Key size: Private-Key: (2048 bit, 2 primes)
+D:/univer/crypta/lab5-pki/pki-data/users/alice/alice.crt: OK
+
+$ ./pki.sh issue bob
+
+==> Generating the private key of 'bob' (RSA, 2048 bits)
+
+==> Creating the certificate signing request (CSR)
+
+==> The CA signs the request -> certificate valid 365 days
+Signature ok
+Certificate is to be certified until Nov 11 12:44:31 2027 GMT (365 days)
+subject=C=MD, L=Chisinau, O=UTM FCIM Crypto Lab, CN=bob
+issuer=C=MD, L=Chisinau, O=UTM FCIM Crypto Lab, CN=UTM Crypto Lab Root CA
+serial=1001
+notBefore=Nov 11 12:44:31 2026 GMT
+notAfter=Nov 11 12:44:31 2027 GMT
+Key size: Private-Key: (2048 bit, 2 primes)
+D:/univer/crypta/lab5-pki/pki-data/users/bob/bob.crt: OK
+
+$ ./pki.sh list
+Status Expires        Serial   Subject
+V      271111124431Z  1000     /C=MD/L=Chisinau/O=UTM FCIM Crypto Lab/CN=alice
+V      271111124431Z  1001     /C=MD/L=Chisinau/O=UTM FCIM Crypto Lab/CN=bob
+
